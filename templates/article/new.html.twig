@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de l'article{% endblock %}
+
+{% block body %}
+    {# <h2 class="title">Créer un nouveau article</h2> #}
+
+    {{ include('article/_form.html.twig', {title: "Créer un nouveau article", required: "required"}) }}
+
+    <a href="{{ path('app_article_index') }}">Voir la liste des articles</a>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.choices_categories').select2();
+            $("input[type='file']").change(function(){
+                var file = $(this).get(0).files[0]
+                console.log(file)
+                if(file){
+                    var reader = new FileReader();
+                    reader.onload = function(){
+                        var img = `<img src='${reader.result}' alt="Preview Image"/>`;
+                        $(".image-preview").html(img)
+                    }
+                    reader.readAsDataURL(file)
+                }
+            })
+        });
+        ClassicEditor
+            .create( document.querySelector( '#article_content' ) )
+            .then( editor => {
+                    console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+        
+    </script>
+{% endblock %}

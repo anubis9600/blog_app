@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ article.title }} {% endblock %}
+
+{% block body %}
+    <div class="single-article">
+        <div class="article-image"
+        style="background-image: url({{ article.imageUrl }})">
+        </div>
+        <div class="article-details flex gap-5">
+            <div class="article-author-details ">
+                <div class="article-author-picture">
+                {% if article.author.profile.picture is defined %}
+                    <img src={{ article.author.profile.picture }} width="50" height="50" alt="Image de profile de {{ article.author.fullname }}">
+                {% else %}
+                    <img src="/_assets/images/avatar_jstore.webp" width="50" height="50" alt="Image de profile de {{ article.author.fullname }}">
+                {% endif %}
+                </div>
+            </div>
+            <div class="article-content-title">
+                <h3 class="article-title">{{ article.title }}</h3>
+                <div class="article-createdAt">{{ article.fromNow }}</div>
+                <div class="article-categories flex wrap">
+                    {% for category in article.categories %}
+                        <a class="article-category-item badge" href="/article_by_category/{{ category.slug }}">{{ category.name }} {{ category.articles | length}} article(s) publié(s)</a>
+                    {% endfor %}
+                </div>
+                {# <a href=""> {{ article.author.full_name }} </a> #}
+            </div>
+            
+        </div>
+        <div class="content">
+            {{ article.content| raw }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!{% endblock %}
+
+{% block body %}
+
+{# {{ form_start(contact) }}
+    <div class="form-group flex">
+        <div class="label-container">
+            {{ form_label(contact.Civility) }}
+        </div>
+        <div class="flex-1 flex">
+            {{ form_widget(contact.Civility) }}
+        </div>
+    </div>
+    <div class="form-group flex">
+        <div class="label-container">
+            {{ form_label(contact.Email) }}
+        </div>
+        <div class="flex-1 flex">
+            {{ form_widget(contact.Email) }}
+        </div>
+    </div>
+    <div class="form-group flex">
+        <div class="label-container">
+            {{ form_label(contact.Subject) }}
+        </div>
+        <div class="flex-1 flex">
+            {{ form_widget(contact.Subject) }}
+        </div>
+    </div>
+    <div class="form-group flex">
+        <div class="label-container">
+            {{ form_label(contact.Message) }}
+        </div>
+        <div class="flex-1 flex">
+            {{ form_widget(contact.Message) }}
+        </div>
+    </div>
+    <div class="form-group flex">
+        <div class="flex-1">
+            {{ form_label(contact.Country) }}
+        </div>
+        <div class="flex-1 flex">
+            {{ form_widget(contact.Country) }}
+        </div>
+    </div>
+        <div class="form-group flex">
+        <div class="label-container">
+            {{ form_label(contact.Category) }}
+        </div>
+        <div class="flex-1 flex">
+            {{ form_widget(contact.Category) }}
+        </div>
+    </div>
+{{ form_end(contact) }} #}
+<h2 class="title">Contactez-nous</h2>
+{{ form_start(contact) }}
+    {% for message in app.session.flashBag.get("message") %}
+        <div class="alert {{ app.session.get("status")}} ">{{ message }}</div>
+    {% endfor %}
+{{ form_end(contact) }}
+
+{% endblock %}

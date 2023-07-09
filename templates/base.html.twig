@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="/_assets/css/main.css">
+        {% endblock %}
+    </head>
+ <body>
+    <header>
+    <a href="/">
+        <h2>Blog</h2>
+    </a>
+    <nav>
+        <ul class="nav-bar flex aic">
+            <li class="nav-item"><a href="">A propos</a></li>
+            <li class="nav-item down"><a href="">Catégories</a>
+                <ul>
+                    {% for category in app.session.get('categories') %}
+                        <li class="nav-item">
+                            <a href="/article_by_category/{{ category.slug }}"> {{category.name }}</a> ({{ category.articles | length}}) articles
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="nav-item"><a href="/contact">Contact</a></li>
+            {% if app.user %}
+                <li class="nav-item"><a href="/account">Compte</a></li>
+                <li class="nav-item"><a href="/logout">Déconnexion</a></li>
+            {% else %}
+                <li class="nav-item"><a href="/login">Connexion</a></li>
+                <li class="nav-item"><a href="/register">Inscription</a></li>
+            {% endif %}
+            
+        </ul>
+    </nav>
+    </header>
+    {% block slider %}{% endblock %}
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+        <footer>
+        <div class="container">
+            <div class="footer-content flex wrap">
+                <div class="footer-content-item flex-1 b">
+                    <h2>Blog</h2>
+                    <p>Site d'informations et d'actualités sur tous les sujets relatifs à l'informatique,
+                        l'economie, la situation dans le monde, etc...
+                    </p>
+                </div>
+                <div class="footer-content-item flex-1 b">
+                    <h2>Mentions légales</h2>
+                    <ul>
+                        <li><a href="">Condition d'utilisation</a></li>
+                        <li><a href="">Condition de ventes</a></li>
+                        <li><a href="">Condition de publication</a></li>
+                    </ul>
+                </div>
+                <div class="footer-content-item flex-1 b">
+                    <h2>Formations gratuites</h2>
+                    <ul>
+                        <li>
+                            <a
+                                href="https://free.mudey.fr/programme/apprendre-les-bases-indispensables-du-langage-html-5"
+                                target="_blank">
+                                Les bases HTML 5
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://free.mudey.fr/programme/apprendre-les-bases-indispensables-du-langage-css-3"
+                                target="_blank">
+                                Les bases CSS 3</a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://free.mudey.fr/programme/apprendre-les-bases-indispensables-du-langages-javascript"
+                                target="_blank">
+                                Les bases JavaScript</a>
+                        </li>
+                        <li>
+                            <a href="https://free.mudey.fr/programme/les-bases-indispensables-du-langage-php"
+                            target="_blank">
+                                Les bases PHP</a>
+                        </li>
+                        <li>
+                            <a href="https://mudey.fr/programme/formation-complete-developpeur-web-full-stack"
+                            target="_blank">
+                                Devenir Expert du Web</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/_assets/js/jquery-3.6.4.js"></script>
+    <script src="/_assets/js/readmore.min.js"></script>
+    <script src="/_assets/js/select2.js"></script>
+    <script src="/_assets/js/editor.js"></script>
+    <script src="/_assets/js/main.js"></script>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</body>
+</html>
